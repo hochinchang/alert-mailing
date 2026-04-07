@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +62,7 @@ class MySQLDedupeStore(DedupeStore):
             "INSERT IGNORE INTO alert_dedupe (event_id, recipient, sent_at) "
             "VALUES (%s, %s, %s)"
         )
-        sent_at = datetime.utcnow()
+        sent_at = datetime.now(timezone.utc)
         with self._conn.cursor() as cursor:
             cursor.execute(sql, (event_id, recipient, sent_at))
         self._conn.commit()
