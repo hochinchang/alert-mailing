@@ -1,0 +1,25 @@
+[Unit]
+Description=Alert Notification System
+Documentation=https://github.com/your-org/alert-notification-system
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=alertsvc
+Group=alertsvc
+WorkingDirectory=/opt/alert-notification-system
+EnvironmentFile=/opt/alert-notification-system/.env
+ExecStart=/opt/alert-notification-system/venv/bin/python main.py
+Restart=on-failure
+RestartSec=10s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=alert-notification
+
+# 安全性限制
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

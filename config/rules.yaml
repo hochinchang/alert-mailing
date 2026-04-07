@@ -1,0 +1,79 @@
+rules:
+  - name: "磁碟使用率過高"
+    source: disk
+    field: Used
+    threshold: 90.0
+    recipients:
+      - admin@example.com
+    enabled: true
+  - name: "系統負載過高 (1分鐘)"
+    source: system
+    field: Load_1
+    threshold: 4.0
+    recipients:
+      - ops@example.com
+    enabled: true
+  - name: "系統負載過高 (5分鐘)"
+    source: system
+    field: Load_5
+    threshold: 4.0
+    recipients:
+      - ops@example.com
+    enabled: true
+  - name: "系統負載過高 (15分鐘)"
+    source: system
+    field: LOAD_15
+    threshold: 4.0
+    recipients:
+      - ops@example.com
+    enabled: true
+  - name: "記憶體使用率過高"
+    source: system
+    field: MemoryUSE
+    threshold: 85.0
+    recipients:
+      - ops@example.com
+    enabled: true
+  - name: "雷達檔案延遲"
+    source: file
+    field: FileLag
+    threshold: 30.0
+    recipients:
+      - radar@example.com
+    enabled: true
+
+databases:
+  disk_status:
+    host: "{{ env:DB_HOST }}"
+    port: 3306
+    user: "{{ env:DB_USER }}"
+    password: "{{ env:DB_PASSWORD }}"
+    database: DiskStatus
+  system_status:
+    host: "{{ env:DB_HOST }}"
+    port: 3306
+    user: "{{ env:DB_USER }}"
+    password: "{{ env:DB_PASSWORD }}"
+    database: SystemStatus
+  file_status:
+    host: "{{ env:DB_HOST }}"
+    port: 3306
+    user: "{{ env:DB_USER }}"
+    password: "{{ env:DB_PASSWORD }}"
+    database: FileStatus
+  alert_store:
+    host: "{{ env:DB_HOST }}"
+    port: 3306
+    user: "{{ env:DB_USER }}"
+    password: "{{ env:DB_PASSWORD }}"
+    database: AlertSystem
+
+email:
+  sender: ho-chin.chang@cwa.gov.tw
+  retry_count: 3
+  default_recipients:
+    - dev01@rsd.cwa.gov.tw
+    - mhochin@gmail.com
+
+scheduler:
+  interval_seconds: 300
