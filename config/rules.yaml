@@ -73,6 +73,10 @@ email:
   retry_count: 3
   default_recipients:
     - dev01@rsd.cwa.gov.tw
+    - mhochin@gmail.comP_PASSWORD }}"
+  retry_count: 3
+  default_recipients:
+    - dev01@rsd.cwa.gov.tw
     - mhochin@gmail.com
 
 scheduler:
